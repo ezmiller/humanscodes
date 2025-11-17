@@ -19,7 +19,7 @@ take a column and return a column: `(column argx argy) => column`.
 
 Over the past three months, I developed some conversation about the
 project within the online Clojure and
-[Scicloj](https://twitter.com/scicloj) communities and on a piece of
+[SciCloj](https://twitter.com/scicloj) communities and on a piece of
 unexpected work: the datatype API for Tablecloth columns. These two
 efforts haven't necessarily overlapped, but they've certainly been
 mutually reinforcing. I'll start by discussing the work I've done on
@@ -130,7 +130,7 @@ experimental): in Github discussions
 enabled on the Tablecloth repository, in Clojurians Slack
 ([here](https://clojurians.zulipchat.com/#narrow/stream/236259-tech.2Eml.2Edataset.2Edev/topic/tablecloth.20columns.20project)),
 and in a short presentation in a session of the newly organized
-"data-recur" Scicloj meeting
+"data-recur" SciCloj meeting
 ([here](https://www.youtube.com/watch?v=nTyPMxDlw0w&ab_channel=SciCloj)).
 
 Some of these conversations related to the process of understanding

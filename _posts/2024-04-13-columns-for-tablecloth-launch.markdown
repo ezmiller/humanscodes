@@ -8,7 +8,7 @@ categories: clojure data-science
 
 ## The New `Column` API
 
-Today we at [scicloj](https://scicloj.github.io) deployed a new Column
+Today we at [SciCloj](https://scicloj.github.io) deployed a new Column
  API (`tablecloth.column.api`) into the data processing library
  [Tablecloth](https://github.com/scicloj/tablecloth) (available as of
  version `7.029.1`). This new API adds a new primitive to the
@@ -19,7 +19,6 @@ Today we at [scicloj](https://scicloj.github.io) deployed a new Column
 
 (tcc/column [1 2 3 4 5])
 ;; => #tech.v3.dataset.column<int64>[5]
-null
 [1, 2, 3, 4, 5]
 ```
 
@@ -43,7 +42,6 @@ that we need to analyze:
 
 test-scores
 ;; => #tech.v3.dataset.column<int64>[8]
-null
 [85, 92, 78, 88, 95, 83, 80, 90]
 ```
 
@@ -58,7 +56,7 @@ operations on them:
 ;; => 5.926634795564849
 ```
 
-There are a many operations that one can perform. At the moment, the
+There are many operations that one can perform. At the moment, the
 available operations are those that you would have previously accessed
 by importing the
 [`tech.v3.datatype.functional`](https://cnuernber.github.io/dtype-next/tech.v3.datatype.functional.html)
@@ -99,7 +97,7 @@ dataset, the code could become unnecessarily verbose:
 |    AAPL |  64.73048780 |
 ```
 
-With the new column operations within for datasets, you can now simply write: 
+With the new column operations for datasets, you can now simply write: 
 
 ```
 (-> stocks
@@ -107,8 +105,8 @@ With the new column operations within for datasets, you can now simply write:
     (tc/mean [:price]))
 ```
 
-The same set operations available to be run on the `column` can be
-called on columns in the datasest. However, when operating a dataset,
+The same set of operations available on the `column` can be
+called on columns in the dataset. However, when operating on a dataset,
 functions that would return a scalar value act as aggregator
 functions, as seen above.
 
@@ -151,11 +149,11 @@ Then we use a dataset column operation that returns a column -- column division,
 ;;    |    MSFT | 24.73674797 | 2000-04-01 |  28.37 |            1.14687670 |
 ```
 
-For more information, on these operations, please consult the
+For more information on these operations, please consult the
 documentation
 [here](https://scicloj.github.io/tablecloth/pr-preview/pr-100/#column-operations).
 
-## Thanks to Clojurist Together
+## Thanks to Clojurists Together
 
 This contribution to Tablecloth was supported by [Clojurists
 Together](https://www.clojuriststogether.org) through their [Quarterly
