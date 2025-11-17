@@ -2,9 +2,10 @@
 title: HumansCode
 email: ethanzanemiller@gmail.com
 description: > 
-  ethan miller is a programer and historian interested in the intersection of technology, ideas, and scholarship that we call the digital humanities
+  a personal blog by ethan miller about topics related to software engineering but sometimes extending into the intersection of technology and society. 
+tagline: A personal blog about technology by Ethan Miller
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://humanscode.com" # the base hostname & protocol for your site
+url: "https://humanscodes.com" # the base hostname & protocol for your site
 permalink: /:title
 twitter_username: ezmiller
 github_username:  ezmiller

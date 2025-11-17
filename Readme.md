@@ -1,9 +1,9 @@
 HumansCode
 ==========
 
-A simple static website built with jekyll for blogging about programming and the digital humanities.
+A simple static website built with Jekyll.
 
-[http://humanscode.com](http://humanscode.com)
+https://humanscodes.com
 
 ## Deployment
 

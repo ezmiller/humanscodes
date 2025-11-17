@@ -5,11 +5,9 @@ layout: default
 <div class="page home">
 
   <header>
-    <h1 class="site-title">{{ site.title }} / a blog about coding in society</h1>
-    <p>ethan miller is a developer and historian interested in the intersection of technology, ideas, and scholarship (i.e. <a href="https://twitter.com/hashtag/digitalhumanities">#digitalhumanities</a>). see some of my coding projects <a href="http://github.com/ezmiller">here</a>, some of my historical work <a href="http://fu-berlin.academia.edu/ethanzanemiller">here</a>, and please don't hesitate to get in touch by <a href="mailto:ethanzanemiller@gmail.com">email</a> to share ideas. you can subscribe to my posts here via <a href="{{ "/feed.xml" | prepend: site.baseurl }}">rss</a>.</p>
+    <h1 class="site-title">{{ site.title }}{% if site.tagline %} / {{ site.tagline }}{% endif %}</h1>
+    <p>a personal blog by ethan miller about topics related to software engineering and ocassionally extending the intersection of technology and society. subscribe via <a href="{{ "/feed.xml" | prepend: site.baseurl }}">rss</a>.</p>
   </header>
-
-  <span><a href="/notebook" target="_blank">See my Open Notebook</a></span>
 
   <div class="posts twelve columns ">
     {% for post in site.posts  %}
