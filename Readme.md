@@ -12,3 +12,10 @@ CI/CD is handled by GitHub Actions and deploys the built site to AWS S3 with a C
 - S3 target: `s3://${{ secrets.AWS_S3_BUCKET_NAME }}` in region `us-west-2`.
 - Required repository secrets: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_S3_BUCKET_NAME`, `AWS_CLOUDFRONT_DISTRIBUTION_ID`.
 
+## Development
+
+Run the server locally using commands in Makefile, e.g.:
+
+```
+make serve-drafts
+```
