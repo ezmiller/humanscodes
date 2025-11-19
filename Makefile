@@ -1,13 +1,10 @@
-deploy:
-	jekyll build
-	rsync -avz --progress --delete-after _site/ humanscode:live/
-	jekyll build --drafts
-	rsync -avz --progress --delete-after --exclude '.htpasswd' _site/ humanscode:staging/
+.PHONY: build serve serve-drafts
 
-deploy-live:
-	jekyll build
-	rsync -avz --progress --delete-after _site/ humanscode:live/
+build:
+	bundle exec jekyll build
 
-deploy-drafts:
-	jekyll build --drafts
-	rsync -avz --progress --delete-after --exclude '.htpasswd' _site/ humanscode:staging/
+serve:
+	bundle exec jekyll serve --livereload
+
+serve-drafts:
+	bundle exec jekyll serve --livereload --drafts

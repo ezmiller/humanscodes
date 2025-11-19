@@ -2,11 +2,12 @@ AGENTS.md — guidance for agents in this repo
 
 Tech stack: Jekyll 3.9.1 + Bundler + jekyll-pandoc. Static site with Markdown, Liquid, and SCSS.
 
-Build/serve/deploy
+Build/serve
 - Setup: gem install bundler && bundle install
 - Build: bundle exec jekyll build
 - Serve (local): bundle exec jekyll serve --livereload
-- Deploy (rsync to configured hosts): make deploy | make deploy-live | make deploy-drafts (do not run in CI)
+- Optional: Makefile provides dev helpers only: `make build`, `make serve`, `make serve-drafts`.
+- Deploy: managed exclusively by CI/CD (GitHub Actions → S3 + CloudFront). Do not use a Makefile or rsync for deployment.
 - CI/CD (GitHub Actions → S3 + CloudFront):
   - Workflow: `.github/workflows/build_and_deploy.yml` (name: "CI / CD"). Triggers on push to `master` and can be run manually via `workflow_dispatch` from the Actions tab.
   - Build: runs `bundle exec jekyll build` with `JEKYLL_ENV=production`, then strips `.html` extensions from non-index pages.
