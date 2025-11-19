@@ -3,7 +3,7 @@ title: HumansCode
 email: ethanzanemiller@gmail.com
 description: > 
   a personal blog by ethan miller about topics related to software engineering but sometimes extending into the intersection of technology and society. 
-tagline: A personal blog about technology by Ethan Miller
+tagline:
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "https://humanscodes.com" # the base hostname & protocol for your site
 permalink: /:title
