@@ -1,0 +1,44 @@
+---
+layout: default
+---
+
+<div class="page home">
+
+  {% include site-header.html %}
+  <header>
+    <p><a href="{{ "/" | prepend: site.baseurl }}">all</a>{% if site.posts.size > 0 %} / <a href="{{ "/posts/" | prepend: site.baseurl }}">posts</a>{% endif %}{% if site.quotes.size > 0 %} / <a href="{{ "/quotes/" | prepend: site.baseurl }}">quotes</a>{% endif %} / links</p>
+  </header>
+
+  <div class="posts twelve columns ">
+    {% assign sorted_links = site.links | sort: "date" | reverse %}
+    {% for link in sorted_links %}
+        {% capture this_year %}{{ link.date | date: "%Y" }}{% endcapture %}
+        {% if forloop.first %}
+        <h2 class="posts-year" id="{{ this_year }}-ref">{{this_year}}</h2>
+        <ul class="post-list">
+        {% endif %}
+
+        <li>
+          <article itemscope itemtype="http://schema.org/BlogPosting">
+            <h2 itemprop="name">
+              <a class="post-link" href="{{ link.url | prepend: site.baseurl }}" itemprop="url">{{ link.title }}</a>
+            </h2>
+            <time class="post-meta" pubdate itemprop="datePublished" datetime="{{ link.date | date_to_xmlschema }}" content="{{ link.date | date_to_xmlschema }}">{{ link.date | date: "%m/%-d/%Y" }}</time>
+          </article>
+        </li>
+
+        {% if forloop.last %}
+        </ul>
+        {% else %}
+            {% assign next_link = sorted_links[forloop.index] %}
+            {% capture next_year %}{{ next_link.date | date: "%Y" }}{% endcapture %}
+            {% if this_year != next_year %}
+            </ul>
+            <h2 class="posts-year" id="{{ next_year }}-ref">{{next_year}}</h2>
+            <ul class="post-list">
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+  </div>
+
+</div>

@@ -11,17 +11,30 @@ layout: null
     <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
     <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
     <generator>Jekyll v{{ jekyll.version }}</generator>
-    {% for post in site.posts limit:10 %}
+    {% assign posts_with_type = site.posts | map: "url" | size %}
+    {% assign all_items = "" | split: "" %}
+    {% for post in site.posts %}
+      {% assign item = post | push: "" | first %}
+      {% assign all_items = all_items | push: post %}
+    {% endfor %}
+    {% for quote in site.quotes %}
+      {% assign all_items = all_items | push: quote %}
+    {% endfor %}
+    {% for link in site.links %}
+      {% assign all_items = all_items | push: link %}
+    {% endfor %}
+    {% assign all_items = all_items | sort: "date" | reverse %}
+    {% for item in all_items limit:20 %}
       <item>
-        <title>{{ post.title | xml_escape }}</title>
-        <description>{{ post.content | xml_escape }}</description>
-        <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
-        <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
-        <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
-        {% for tag in post.tags %}
+        <title>{% if item.layout == "quote" %}[Quote] {{ item.source | xml_escape }}{% elsif item.layout == "link" %}[Link] {{ item.title | xml_escape }}{% else %}{{ item.title | xml_escape }}{% endif %}</title>
+        <description>{{ item.content | xml_escape }}</description>
+        <pubDate>{{ item.date | date_to_rfc822 }}</pubDate>
+        <link>{{ item.url | prepend: site.baseurl | prepend: site.url }}</link>
+        <guid isPermaLink="true">{{ item.url | prepend: site.baseurl | prepend: site.url }}</guid>
+        {% for tag in item.tags %}
         <category>{{ tag | xml_escape }}</category>
         {% endfor %}
-        {% for cat in post.categories %}
+        {% for cat in item.categories %}
         <category>{{ cat | xml_escape }}</category>
         {% endfor %}
       </item>

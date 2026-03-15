@@ -169,6 +169,13 @@ header .site-title {
   }
 }
 
+.site-byline {
+  font-weight: 400;
+  font-size: 0.55em;
+  color: lighten($primary-font-color, 20%);
+  letter-spacing: 0;
+}
+
 .posts {
   min-height: 30rem;
 }

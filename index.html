@@ -2,44 +2,71 @@
 layout: default
 ---
 
+{% comment %}Combine all content types into one sorted stream{% endcomment %}
+{% assign all_items = site.posts | concat: site.quotes | concat: site.links | sort: "date" | reverse %}
+
 <div class="page home">
 
+  {% include site-header.html %}
   <header>
-    <h1 class="site-title">{{ site.title }}{% if site.tagline %} / {{ site.tagline }}{% endif %}</h1>
-    <p>a personal blog by ethan miller about topics related to software engineering and (sometimes) matters relating to the the intersection of technology and society. subscribe via <a href="{{ "/feed.xml" | prepend: site.baseurl }}">rss</a>.</p>
+    <p>quotes, links, and essays on software, AI, and the cultures they produce. subscribe via <a href="{{ "/feed.xml" | prepend: site.baseurl }}">rss</a>.</p>
+    <p>all{% if site.posts.size > 0 %} / <a href="{{ "/posts/" | prepend: site.baseurl }}">posts</a>{% endif %}{% if site.quotes.size > 0 %} / <a href="{{ "/quotes/" | prepend: site.baseurl }}">quotes</a>{% endif %}{% if site.links.size > 0 %} / <a href="{{ "/links/" | prepend: site.baseurl }}">links</a>{% endif %}</p>
   </header>
 
   <div class="posts twelve columns ">
-    {% for post in site.posts  %}
-        {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
-        {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
+    {% for item in all_items %}
+        {% capture this_year %}{{ item.date | date: "%Y" }}{% endcapture %}
+        {% capture prev_year %}{{ all_items[forloop.index].date | date: "%Y" }}{% endcapture %}
 
         {% if forloop.first %}
         <h2 class="posts-year" id="{{ this_year }}-ref">{{this_year}}</h2>
         <ul class="post-list">
         {% endif %}
 
+        {% if item.collection == "quotes" %}
+        <li>
+          <article>
+            <blockquote>{{ item.content | split: "</blockquote>" | first | remove: "<blockquote>" | strip_html | truncate: 200 }}</blockquote>
+            <p class="post-meta">
+              &mdash; {% if item.source_url %}<a href="{{ item.source_url }}">{{ item.source }}</a>{% else %}{{ item.source }}{% endif %}
+              / <time datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%m/%-d/%Y" }}</time>
+              / <a href="{{ item.url | prepend: site.baseurl }}">permalink</a>
+            </p>
+          </article>
+        </li>
+
+        {% elsif item.collection == "links" %}
+        <li>
+          <article>
+            <h2><a class="post-link" href="{{ item.url_link }}">{{ item.title }} &rarr;</a></h2>
+            <p>{{ item.content | strip_html | truncate: 200 }}</p>
+            <time class="post-meta" datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%m/%-d/%Y" }}</time>
+            / <a class="post-meta" href="{{ item.url | prepend: site.baseurl }}">permalink</a>
+          </article>
+        </li>
+
+        {% else %}
         <li>
           <article itemscope itemtype="http://schema.org/BlogPosting">
             <h2 itemprop="name">
-              <a class="post-link" href="{{ post.url | prepend: site.baseurl }}" itemprop="url">{{ post.title }}</a> 
+              <a class="post-link" href="{{ item.url | prepend: site.baseurl }}" itemprop="url">{{ item.title }}</a>
             </h2>
-            <time class="post-meta" pubdate itemprop="datePublished" datetime="{{ post.date | date_to_xmlschema }}" content="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%m/%-d/%Y" }}</time>
+            <p>{{ item.excerpt | strip_html | truncate: 200 }}</p>
+            <time class="post-meta" pubdate itemprop="datePublished" datetime="{{ item.date | date_to_xmlschema }}" content="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%m/%-d/%Y" }}</time>
           </article>
         </li>
+        {% endif %}
 
         {% if forloop.last %}
         </ul>
         {% else %}
-            {% if this_year != next_year %}
+            {% if this_year != prev_year %}
             </ul>
-            <h2 class="posts-year" id="{{ next_year }}-ref">{{next_year}}</h2>
+            <h2 class="posts-year" id="{{ prev_year }}-ref">{{prev_year}}</h2>
             <ul class="post-list">
             {% endif %}
         {% endif %}
     {% endfor %}
   </div>
-
-  <!-- {% include footer.html %} -->
 
 </div>

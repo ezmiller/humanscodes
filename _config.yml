@@ -1,5 +1,5 @@
 # Site settings
-title: HumansCode
+title: HumansCodes
 email: ethanzanemiller@gmail.com
 description: > 
   a personal blog by ethan miller about topics related to software engineering but sometimes extending into the intersection of technology and society. 
@@ -7,6 +7,14 @@ tagline:
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "https://humanscodes.com" # the base hostname & protocol for your site
 permalink: /:title
+
+collections:
+  quotes:
+    output: true
+    permalink: /quotes/:title
+  links:
+    output: true
+    permalink: /links/:title
 twitter_username: ezmiller
 github_username:  ezmiller
 
