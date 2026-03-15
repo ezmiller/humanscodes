@@ -26,10 +26,12 @@ layout: default
         {% if item.collection == "quotes" %}
         <li>
           <article>
+            <h2>
+              <a class="post-link" href="{{ item.url | prepend: site.baseurl }}">{{ item.source }}</a>
+            </h2>
             <blockquote>{{ item.content | split: "</blockquote>" | first | remove: "<blockquote>" | strip_html | truncate: 200 }}</blockquote>
             <p class="post-meta">
-              &mdash; {% if item.source_url %}<a href="{{ item.source_url }}">{{ item.source }}</a>{% else %}{{ item.source }}{% endif %}
-              / <time datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%m/%-d/%Y" }}</time>
+              <time datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%m/%-d/%Y" }}</time>
               / <a href="{{ item.url | prepend: site.baseurl }}">permalink</a>
             </p>
           </article>
