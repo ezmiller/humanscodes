@@ -27,7 +27,7 @@ layout: default
         <li>
           <article>
             <h2>
-              <a class="post-link" href="{{ item.url | prepend: site.baseurl }}">{{ item.source }}</a>
+              <a class="post-link" href="{{ item.url | prepend: site.baseurl }}">{% if item.title %}{{ item.title }}{% else %}{{ item.source }}{% endif %}</a>
             </h2>
             <blockquote>{{ item.content | split: "</blockquote>" | first | remove: "<blockquote>" | strip_html | truncate: 200 }}</blockquote>
             <p class="post-meta">

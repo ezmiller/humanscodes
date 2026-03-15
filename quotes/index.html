@@ -23,7 +23,7 @@ layout: default
         <li>
           <article itemscope itemtype="http://schema.org/BlogPosting">
             <h2 itemprop="name">
-              <a class="post-link" href="{{ quote.url | prepend: site.baseurl }}" itemprop="url">{{ quote.source }}</a>
+              <a class="post-link" href="{{ quote.url | prepend: site.baseurl }}" itemprop="url">{% if quote.title %}{{ quote.title }}{% else %}{{ quote.source }}{% endif %}</a>
             </h2>
             <time class="post-meta" pubdate itemprop="datePublished" datetime="{{ quote.date | date_to_xmlschema }}" content="{{ quote.date | date_to_xmlschema }}">{{ quote.date | date: "%m/%-d/%Y" }}</time>
           </article>

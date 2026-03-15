@@ -1,9 +1,10 @@
 ---
 layout: quote
+title: "Nan Da on Ethics of AIs as Engines of Transductive Inference"
 source: "Nan Z. Da, 'Literary Criticism in the Age of AI'"
 source_url: https://newleftreview.org/issues/ii155/articles/nan-da-literary-criticism-in-the-age-of-ai
 date: 2026-03-15
-tags: [ai, ai/ethicss, inference, llm]
+tags: [ai, ai/ethics, inference, llm]
 ---
 > How curious that these very different applications have all become
 > similar tasks in the world of AI, approached through similar pieces
@@ -39,13 +40,19 @@ resting on the moment of inference. "[C]consider the Idea of Justice,
 placed as an intermediate Idea between the punishment of Men, and the
 guilt of the punished." Da writes: "Justice might as well be another
 word for inference." But Locke worried about unregulated inference as
-a source of bias. What happens to civil society, Da is asking, when we
-transform (or replace) institutions by integration inference machines
-that reduce all problems to the inference but have no sense of
-inferential validity or variety?
+a source of bias, whether our ideas were not based on some
+"modifications, or combinations, or corellatios of the primary data"
+of external and internal sense." 
 
-> AI may not care about any of this, of course, because, like Death, it
-> cannot suffer the downstream consequences of faked comprehension and
-> wrongful inferences in its body or its life. But that would mean that
-> we have to care about those consequences—of fakery and wrongful
-> inference—on other people’s bodies and lives.
+What happens to civil society, Da is asking, when we transform and
+institutions currently staffed by humans through the integration of
+inference machines that can satisfactorily reduce most problems to a
+world-historically powerful form of sequential inference but have no
+sense of inferential validity or variety?
+
+> AI may not care about any of this, of course, because, like Death,
+> it cannot suffer the downstream consequences of faked comprehension
+> and wrongful inferences in its body or its life. But that would mean
+> that we [humans] have to care about those consequences—of fakery and
+> wrongful inference—on other people’s bodies and lives.
+
