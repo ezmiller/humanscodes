@@ -9,37 +9,20 @@ layout: default
     <p><a href="{{ "/" | prepend: site.baseurl }}">all</a>{% if site.posts.size > 0 %} / <a href="{{ "/posts" | prepend: site.baseurl }}">posts</a>{% endif %} / quotes{% if site.links.size > 0 %} / <a href="{{ "/links" | prepend: site.baseurl }}">links</a>{% endif %}</p>
   </header>
 
-  <div class="posts twelve columns ">
+  <div class="posts twelve columns">
     {% assign sorted_quotes = site.quotes | sort: "date" | reverse %}
     {% for quote in sorted_quotes %}
-        {% capture this_year %}{{ quote.date | date: "%Y" }}{% endcapture %}
-        {% if forloop.first %}
-        <h2 class="posts-year" id="{{ this_year }}-ref">{{this_year}}</h2>
-        <ul class="post-list">
-        {% endif %}
-
-        {% capture prev_year %}{% if forloop.last %}{% else %}{% assign next_quote = sorted_quotes[forloop.index] %}{{ next_quote.date | date: "%Y" }}{% endif %}{% endcapture %}
-
-        <li>
-          <article itemscope itemtype="http://schema.org/BlogPosting">
-            <h2 itemprop="name">
-              <a class="post-link" href="{{ quote.url | prepend: site.baseurl }}" itemprop="url">{% if quote.title %}{{ quote.title }}{% else %}{{ quote.source }}{% endif %}</a>
-            </h2>
-            <time class="post-meta" pubdate itemprop="datePublished" datetime="{{ quote.date | date_to_xmlschema }}" content="{{ quote.date | date_to_xmlschema }}">{{ quote.date | date: "%m/%-d/%Y" }}</time>
-          </article>
-        </li>
-
-        {% if forloop.last %}
-        </ul>
-        {% else %}
-            {% assign next_quote = sorted_quotes[forloop.index] %}
-            {% capture next_year %}{{ next_quote.date | date: "%Y" }}{% endcapture %}
-            {% if this_year != next_year %}
-            </ul>
-            <h2 class="posts-year" id="{{ next_year }}-ref">{{next_year}}</h2>
-            <ul class="post-list">
-            {% endif %}
-        {% endif %}
+        <article class="quote-item">
+          <time class="post-meta post-date" datetime="{{ quote.date | date_to_xmlschema }}">{{ quote.date | date: "%B %-d, %Y" }}</time>
+          <h2>
+            <a class="post-link" href="{{ quote.url | prepend: site.baseurl }}">{% if quote.title %}{{ quote.title }}{% else %}{{ quote.source }}{% endif %}</a>
+          </h2>
+          {% if quote.highlight %}
+          <blockquote>{{ quote.highlight }}</blockquote>
+          {% endif %}
+          <p class="post-meta">&mdash; {% if quote.source_url %}<a href="{{ quote.source_url }}">{{ quote.source }}</a>{% else %}{{ quote.source }}{% endif %}{% assign word_count = quote.content | strip_html | number_of_words %}{% if word_count > 80 %} / <a href="{{ quote.url | prepend: site.baseurl }}">commentary &rarr;</a>{% endif %}</p>
+          {% if quote.tags.size > 0 %}<p class="post-tags">{% for tag in quote.tags %}{{ tag }}{% unless forloop.last %} · {% endunless %}{% endfor %}</p>{% endif %}
+        </article>
     {% endfor %}
   </div>
 
