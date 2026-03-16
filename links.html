@@ -6,7 +6,7 @@ layout: default
 
   {% include site-header.html %}
   <header>
-    <p><a href="{{ "/" | prepend: site.baseurl }}">all</a>{% if site.posts.size > 0 %} / <a href="{{ "/posts/" | prepend: site.baseurl }}">posts</a>{% endif %}{% if site.quotes.size > 0 %} / <a href="{{ "/quotes/" | prepend: site.baseurl }}">quotes</a>{% endif %} / links</p>
+    <p><a href="{{ "/" | prepend: site.baseurl }}">all</a>{% if site.posts.size > 0 %} / <a href="{{ "/posts" | prepend: site.baseurl }}">posts</a>{% endif %}{% if site.quotes.size > 0 %} / <a href="{{ "/quotes" | prepend: site.baseurl }}">quotes</a>{% endif %} / links</p>
   </header>
 
   <div class="posts twelve columns ">
