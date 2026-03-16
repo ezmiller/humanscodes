@@ -4,7 +4,7 @@ title: "Nan Da on Ethics of AIs as Engines of Transductive Inference"
 source: "Nan Z. Da, 'Literary Criticism in the Age of AI'"
 source_url: https://newleftreview.org/issues/ii155/articles/nan-da-literary-criticism-in-the-age-of-ai
 date: 2026-03-15
-tags: [ai, ai/ethics, inference, llm]
+tags: [ai, ai/ethics, inference, llm, digital-humanities]
 highlight: >
   How curious that these very different applications have all become
   similar tasks in the world of AI, approached through similar pieces
