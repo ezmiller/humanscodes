@@ -9,7 +9,6 @@ layout: default
 
   {% include site-header.html %}
   <header>
-    <p>quotes, links, and essays on software, AI, and the cultures they produce. subscribe via <a href="{{ "/feed.xml" | prepend: site.baseurl }}">rss</a>.</p>
     <p>all{% if site.posts.size > 0 %} / <a href="{{ "/posts" | prepend: site.baseurl }}">posts</a>{% endif %}{% if site.quotes.size > 0 %} / <a href="{{ "/quotes" | prepend: site.baseurl }}">quotes</a>{% endif %}{% if site.links.size > 0 %} / <a href="{{ "/links" | prepend: site.baseurl }}">links</a>{% endif %}</p>
   </header>
 
