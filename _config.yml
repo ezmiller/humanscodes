@@ -11,10 +11,10 @@ permalink: /:title
 collections:
   quotes:
     output: true
-    permalink: /quotes/:title
+    permalink: /quote/:title
   links:
     output: true
-    permalink: /links/:title
+    permalink: /link/:title
 twitter_username: ezmiller
 github_username:  ezmiller
 
