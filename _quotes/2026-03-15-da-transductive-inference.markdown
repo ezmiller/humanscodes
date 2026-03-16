@@ -32,19 +32,19 @@ all become the same task — predict the next word given previous words.
 This is a purely empirical mode of inference, from particular to
 particular. Comprehension of particular experience is not touched by
 general understanding, and abstract is not informed by particular
-experience. It's the empiricists fantasy of the self-sufficiency of
+experience. It's the empiricist's fantasy of the self-sufficiency of
 "data."
 
 Da points out that Locke -- the empiricist -- saw civil society as
-resting on the moment of inference. "[C]consider the Idea of Justice,
+resting on the moment of inference. "[C]onsider the Idea of Justice,
 placed as an intermediate Idea between the punishment of Men, and the
 guilt of the punished." Da writes: "Justice might as well be another
 word for inference." But Locke worried about unregulated inference as
 a source of bias, whether our ideas were not based on some
-"modifications, or combinations, or corellatios of the primary data"
-of external and internal sense." 
+"modifications, or combinations, or correlations of the primary data
+of external and internal sense."
 
-What happens to civil society, Da is asking, when we transform and
+What happens to civil society, Da is asking, when we transform
 institutions currently staffed by humans through the integration of
 inference machines that can satisfactorily reduce most problems to a
 world-historically powerful form of sequential inference but have no
