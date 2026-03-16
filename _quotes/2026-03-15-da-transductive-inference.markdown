@@ -5,6 +5,14 @@ source: "Nan Z. Da, 'Literary Criticism in the Age of AI'"
 source_url: https://newleftreview.org/issues/ii155/articles/nan-da-literary-criticism-in-the-age-of-ai
 date: 2026-03-15
 tags: [ai, ai/ethics, inference, llm]
+highlight: >
+  How curious that these very different applications have all become
+  similar tasks in the world of AI, approached through similar pieces
+  of engineering. Comprehension questions are treated as translation
+  questions, and translation models are further simplified into
+  language models — essentially, predict the next word, given previous
+  words. How could this interchangeability possibly work? How could
+  next-word prediction approximate moral judgement?
 ---
 > How curious that these very different applications have all become
 > similar tasks in the world of AI, approached through similar pieces

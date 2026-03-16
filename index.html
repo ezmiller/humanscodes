@@ -16,12 +16,16 @@ layout: default
     {% for item in all_items %}
 
         {% if item.collection == "quotes" %}
-        <article>
+        <article class="quote-item">
           <time class="post-meta post-date" datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%B %-d, %Y" }}</time>
           <h2>
             <a class="post-link" href="{{ item.url | prepend: site.baseurl }}">{% if item.title %}{{ item.title }}{% else %}{{ item.source }}{% endif %}</a>
           </h2>
-          <blockquote>{{ item.content | split: "</blockquote>" | first | remove: "<blockquote>" | strip_html | truncate: 200 }}</blockquote>
+          {% if item.highlight %}
+          <blockquote>{{ item.highlight }}</blockquote>
+          {% endif %}
+          <p class="post-meta">&mdash; {% if item.source_url %}<a href="{{ item.source_url }}">{{ item.source }}</a>{% else %}{{ item.source }}{% endif %}{% assign word_count = item.content | strip_html | number_of_words %}{% if word_count > 80 %} / <a href="{{ item.url | prepend: site.baseurl }}">commentary &rarr;</a>{% endif %}</p>
+          {% if item.tags.size > 0 %}<p class="post-tags">{% for tag in item.tags %}{{ tag }}{% unless forloop.last %} / {% endunless %}{% endfor %}</p>{% endif %}
         </article>
 
         {% elsif item.collection == "links" %}
@@ -29,6 +33,7 @@ layout: default
           <time class="post-meta post-date" datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%B %-d, %Y" }}</time>
           <h2><a class="post-link" href="{{ item.url_link }}">{{ item.title }} &rarr;</a></h2>
           <p>{{ item.content | strip_html | truncate: 200 }}</p>
+          {% if item.tags.size > 0 %}<p class="post-tags">{% for tag in item.tags %}{{ tag }}{% unless forloop.last %} / {% endunless %}{% endfor %}</p>{% endif %}
         </article>
 
         {% else %}
@@ -38,6 +43,7 @@ layout: default
             <a class="post-link" href="{{ item.url | prepend: site.baseurl }}" itemprop="url">{{ item.title }}</a>
           </h2>
           <p>{{ item.excerpt | strip_html | truncate: 200 }}</p>
+          {% if item.tags.size > 0 %}<p class="post-tags">{% for tag in item.tags %}{{ tag }}{% unless forloop.last %} / {% endunless %}{% endfor %}</p>{% elsif item.categories.size > 0 %}<p class="post-tags">{% for cat in item.categories %}{{ cat }}{% unless forloop.last %} / {% endunless %}{% endfor %}</p>{% endif %}
         </article>
         {% endif %}
 

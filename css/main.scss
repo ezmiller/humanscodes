@@ -224,6 +224,11 @@ header .site-title {
       margin-top: 0.4rem;
       margin-bottom: 0;
     }
+
+    > .post-tags {
+      margin-top: 1.5rem;
+      margin-bottom: -1.8rem;
+    }
   }
 }
 
@@ -298,12 +303,57 @@ header .site-title {
   display: inline;
 }
 
+.quote-item blockquote {
+  background: none;
+  border-left: none;
+  margin: 0.3rem 0 0.5rem 0;
+  padding: 0.3em 0.8em;
+  quotes: "\201C""\201D";
+
+  &:before {
+    color: lighten($primary-font-color, 30%);
+    content: open-quote;
+    font-size: 2.5em;
+    line-height: 0.1em;
+    margin-right: 0.15em;
+    vertical-align: -0.3em;
+    font-weight: 700;
+  }
+
+  &:after {
+    color: lighten($primary-font-color, 30%);
+    content: close-quote;
+    font-size: 2.5em;
+    line-height: 0.1em;
+    margin-left: 0.1em;
+    vertical-align: -0.3em;
+    font-weight: 700;
+  }
+
+  p {
+    display: inline;
+  }
+}
+
 .post-meta {
   font-family: $base-font-family;
   font-size: 85%;
   font-weight: 400;
   font-style: italic;
   color: lighten($primary-font-color, 20%);
+}
+
+.post-tags {
+  font-size: 70%;
+  color: lighten($primary-font-color, 30%);
+  margin-top: 1.2rem;
+  margin-bottom: 0;
+}
+
+.post-more {
+  font-size: 85%;
+  margin-top: 0.3rem;
+  margin-bottom: 0;
 }
 
 .footnotes {
