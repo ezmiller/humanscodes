@@ -12,57 +12,35 @@ layout: default
     <p>all{% if site.posts.size > 0 %} / <a href="{{ "/posts" | prepend: site.baseurl }}">posts</a>{% endif %}{% if site.quotes.size > 0 %} / <a href="{{ "/quotes" | prepend: site.baseurl }}">quotes</a>{% endif %}{% if site.links.size > 0 %} / <a href="{{ "/links" | prepend: site.baseurl }}">links</a>{% endif %}</p>
   </header>
 
-  <div class="posts twelve columns ">
+  <div class="posts twelve columns">
     {% for item in all_items %}
-        {% capture this_year %}{{ item.date | date: "%Y" }}{% endcapture %}
-        {% capture prev_year %}{{ all_items[forloop.index].date | date: "%Y" }}{% endcapture %}
-
-        {% if forloop.first %}
-        <h2 class="posts-year" id="{{ this_year }}-ref">{{this_year}}</h2>
-        <ul class="post-list">
-        {% endif %}
 
         {% if item.collection == "quotes" %}
-        <li>
-          <article>
-            <h2>
-              <a class="post-link" href="{{ item.url | prepend: site.baseurl }}">{% if item.title %}{{ item.title }}{% else %}{{ item.source }}{% endif %}</a>
-            </h2>
-            <blockquote>{{ item.content | split: "</blockquote>" | first | remove: "<blockquote>" | strip_html | truncate: 200 }}</blockquote>
-            <time class="post-meta" datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%m/%-d/%Y" }}</time>
-          </article>
-        </li>
+        <article>
+          <time class="post-meta post-date" datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%B %-d, %Y" }}</time>
+          <h2>
+            <a class="post-link" href="{{ item.url | prepend: site.baseurl }}">{% if item.title %}{{ item.title }}{% else %}{{ item.source }}{% endif %}</a>
+          </h2>
+          <blockquote>{{ item.content | split: "</blockquote>" | first | remove: "<blockquote>" | strip_html | truncate: 200 }}</blockquote>
+        </article>
 
         {% elsif item.collection == "links" %}
-        <li>
-          <article>
-            <h2><a class="post-link" href="{{ item.url_link }}">{{ item.title }} &rarr;</a></h2>
-            <p>{{ item.content | strip_html | truncate: 200 }}</p>
-            <time class="post-meta" datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%m/%-d/%Y" }}</time>
-          </article>
-        </li>
+        <article>
+          <time class="post-meta post-date" datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%B %-d, %Y" }}</time>
+          <h2><a class="post-link" href="{{ item.url_link }}">{{ item.title }} &rarr;</a></h2>
+          <p>{{ item.content | strip_html | truncate: 200 }}</p>
+        </article>
 
         {% else %}
-        <li>
-          <article itemscope itemtype="http://schema.org/BlogPosting">
-            <h2 itemprop="name">
-              <a class="post-link" href="{{ item.url | prepend: site.baseurl }}" itemprop="url">{{ item.title }}</a>
-            </h2>
-            <p>{{ item.excerpt | strip_html | truncate: 200 }}</p>
-            <time class="post-meta" pubdate itemprop="datePublished" datetime="{{ item.date | date_to_xmlschema }}" content="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%m/%-d/%Y" }}</time>
-          </article>
-        </li>
+        <article itemscope itemtype="http://schema.org/BlogPosting">
+          <time class="post-meta post-date" pubdate itemprop="datePublished" datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%B %-d, %Y" }}</time>
+          <h2 itemprop="name">
+            <a class="post-link" href="{{ item.url | prepend: site.baseurl }}" itemprop="url">{{ item.title }}</a>
+          </h2>
+          <p>{{ item.excerpt | strip_html | truncate: 200 }}</p>
+        </article>
         {% endif %}
 
-        {% if forloop.last %}
-        </ul>
-        {% else %}
-            {% if this_year != prev_year %}
-            </ul>
-            <h2 class="posts-year" id="{{ prev_year }}-ref">{{prev_year}}</h2>
-            <ul class="post-list">
-            {% endif %}
-        {% endif %}
     {% endfor %}
   </div>
 
