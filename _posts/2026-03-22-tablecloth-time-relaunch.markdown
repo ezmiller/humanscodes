@@ -5,6 +5,7 @@ author: Ethan Miller
 date: 2026-03-22
 categories: clojure data-science
 tags: [clojure, data-science, time-series, tablecloth, scicloj]
+excerpt: "I recently relaunched the tablecloth.time project — a composable extension for temporal analysis in Clojure. The new direction favors explicit operations over index magic."
 ---
 
 {% include figure.html src="/assets/images/hero-seasonal.png" caption="Daily electricity demand patterns — each line is one day, colored by year" %}
