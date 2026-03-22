@@ -26,13 +26,13 @@ df.resample('D').mean()    # daily averages
 
 The index is invisible but ever-present — you don't pass the time column to these functions; they just know.
 
-At the time, the index seemed necessary both because it was a familiar and convenient tool, and it offered what seemed like necessary optimizations when doing operations that involved subsetting the dataset where using a tree structure offered O(log(n)) optimization.
+### Rethinking the Need for an Index
+
+At the time the project began, the index seemed necessary both because it was a familiar and convenient tool, and it offered what seemed like necessary optimizations when doing operations that involved subsetting the dataset where using a tree structure offered O(log(n)) optimization.
 
 However, ultimately, neither turned out to be good rationales for an index. Unlike in Python, Clojure's datasets are immutable. They're recreated wholesale each time you transform them. Under these circumstances, the optimization offered by a tree-based index is moot: the cost of building the tree negates the benefit, and a simple binary search on sorted data performs equally well or better.
 
 This insight emerged from a discussion on the Clojurians Zulip in late 2024, after the tech.ml.dataset library removed its indexing mechanism. Chris Nuernberger, the author of dtype-next and the tech.ml.dataset , put it plainly: "You only need tree structures if you are adding values ad-hoc or removing them — usually with datasets we aren't adding/removing rows but rebuilding the index all at once. Just sorting the dataset and using binary search will outperform most/all tree structures in this scenario." Harold, Chris's colleague, validated this with real-world benchmarks: binary search on a million-row dataset performed at over a million rows per second. The simplicity of not needing an index is not a compromise.
-
-### Indexing and UX
 
 There was still, however, the question of whether the index was a useful abstraction for the user. An index allows the user to mark off certain data as the key pivot for analysis, while index-aware functions offer a degree of "magic" allowing the user to simply call a function like `slice` without needing to say what they intend to slice. In R's tsibble package, for example:
 
@@ -56,9 +56,13 @@ That said, within the Clojure data community there was a detectable preference f
 
 No hidden state, no implicit pivots. Each function takes the data and the columns it operates on. The pipeline reads like what it does. This, of course, is a hallmark of Clojure itself where we prefer to solve complex problems by starting with small pure functions that simply modify immutable data. The beauty of the tech.ml.dataset's objects is that they can be treated the same way.
 
-In reviving tablecloth.time, I am following this pattern. While I might at some point decide there is a power to enabling a utility that marks a column as "the time index" and building functions that can use that information, for the moment tablecloth.time provides explicit primitives that compose with standard tablecloth operations. You say which column you're working with. You see exactly what's being computed.
+In reviving tablecloth.time, I have been following this pattern. While it might at some point be clear there is a power to enabling a utility that marks a column as "the time index" and building functions that can use that information, for the moment tablecloth.time provides explicit primitives that compose with standard tablecloth operations. You simply say which column you're working with. You see exactly what's being computed.
 
-Consider resampling — aggregating time series data to a coarser resolution. In Pandas:
+## Working through a Use Case
+
+Consider resampling — aggregating time series data to a coarser resolution.
+
+In Pandas:
 
 ```python
 df.resample('D').mean()
@@ -66,7 +70,7 @@ df.resample('D').mean()
 
 This is one opaque line. 'D' is a frequency string meaning "daily" — one of dozens of such codes ('W' for weekly, 'M' for monthly, 'H' for hourly, and so on). The operation uses the implicit DateTimeIndex and automatically aggregates every numeric column. Convenient, but what exactly is happening?
 
-tablecloth.time doesn't have a resample function. Instead, resampling is just a pattern — composable primitives that work with standard tablecloth:
+Right now tablecloth.time doesn't have a resample function. Instead, resampling is just a pattern — composable primitives that work with standard tablecloth:
 
 ```clojure
 (-> ds
@@ -77,7 +81,7 @@ tablecloth.time doesn't have a resample function. Instead, resampling is just a 
 
 You choose what temporal component to extract. You specify the time index (`:Time`). You choose what to group by. You choose what to aggregate. Each step is visible, each step composes with the rest of your pipeline. The code reads like what it does — a property Clojure programmers tend to value.
 
-At some point, this pattern could also be packaged, for convience, into a `resample` function that encapsulates this pattern. That would be magic to some degree, but this function would also just name the index: 
+Yet at some point, this pattern could also be packaged, for convience, into a `resample` function that encapsulates this pattern. That would be magic to some degree, but this function would also just name the index: 
 
 ```clojure
 (-> ds
@@ -93,12 +97,6 @@ The key distinction from Pandas: in tablecloth.time, the index would be pure con
 (tct/resample ds :Time :day)
 ```
 
-The index would be optional sugar, not architecture. That's the difference.
+The index would be optional sugar, not architecture. That's the difference. Right now, though, I am holding off on building such a conveniences. Sticking to the declarative transformations helps to reveal the shape of the patterns that could eventually he wrapped aw conveninces. 
 
-<!-- NOTES: Continue from here. Sections to cover:
-  1. What happened: index removal from tech.ml.dataset, the Zulip discussion
-  2. The design pivot: composability over abstraction, binary search vs tree structures
-  3. What it looks like in practice: code examples (add-time-columns, slice, add-lags, resampling)
-  4. Charts: Victorian electricity demand example
-  5. What's next
--->
+
