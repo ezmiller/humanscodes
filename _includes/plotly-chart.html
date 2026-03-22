@@ -1,0 +1,21 @@
+<div id="{{ include.id }}" style="width:100%; max-width:700px; margin:0 auto;"></div>
+<script>
+(function() {
+  var chartId = '{{ include.id }}';
+  var traces = {{ include.traces }};
+  var layout = {{ include.layout }};
+  
+  function render() {
+    Plotly.newPlot(chartId, traces, layout, {responsive: true});
+  }
+  
+  if (typeof Plotly === 'undefined') {
+    var s = document.createElement('script');
+    s.src = 'https://unpkg.com/plotly.js-dist-min@2.35.2/plotly.min.js';
+    s.onload = render;
+    document.head.appendChild(s);
+  } else {
+    render();
+  }
+})();
+</script>
