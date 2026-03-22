@@ -135,7 +135,7 @@ Fast even on large datasets. Accepts date strings, datetime literals, or epoch m
 
 ### Lag and lead columns
 
-`add-lag` shifts column values for autocorrelation analysis. Here, lag-48 (one day at half-hourly resolution) lets us compare demand to the same time yesterday:
+`add-lag` shifts column values for autocorrelation analysis. Since this dataset has half-hourly readings, a lag of 48 rows equals 24 hours — letting us compare demand to the same time yesterday:
 
 ```clojure
 (-> vic-elec
