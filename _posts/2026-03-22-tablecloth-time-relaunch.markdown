@@ -9,7 +9,7 @@ tags: [clojure, data-science, time-series, tablecloth, scicloj]
 
 I recently relaunched the tablecloth.time project. The goal of this project, which remains in an experimental phase, is to explore a composable extension of the popular tablecloth data processing library that aids temporal analysis of tabular data. Relaunching this project required rethinking some of our intial ideas about how this project would work. While the project remains experimental, the new direction aligns with how tablecloth and tech.ml.dataset already work — explicit column arguments, composable operations, no metadata magic.
 
-### Indexing and Optimization
+## Indexing and Optimization
 
 This project started its life several years ago with the SciCloj community. At that time, we thought that the project should be built around a mechanism of setting a temporal index structure on a dataset and then building index-aware functions that could operate over the data efficiently using that index. This was a design philosophy that mimicked the index available in Python Pandas. In Pandas, you might set a time column as your DataFrame's index:
 
@@ -26,7 +26,7 @@ df.resample('D').mean()    # daily averages
 
 The index is invisible but ever-present — you don't pass the time column to these functions; they just know.
 
-### Rethinking the Need for an Index
+## Rethinking the Need for an Index
 
 At the time the project began, the index seemed necessary both because it was a familiar and convenient tool, and it offered what seemed like necessary optimizations when doing operations that involved subsetting the dataset where using a tree structure offered O(log(n)) optimization.
 
@@ -43,7 +43,7 @@ vic_elec |> index_by(Date = as_date(Time)) |> summarise(Demand = mean(Demand))
 
 The `index = Time` declaration ripples through everything — `index_by` knows what to group on, plotting functions know the x-axis, and interval detection happens automatically. It's elegant, which makes this approach desirable, but it's also implicit state threaded through your data. So while the the question of optimziation could be answered more definitively, the UX issues involved real choices.
 
-### Favoring Clarity and Composability
+## Favoring Clarity and Composability
 
 That said, within the Clojure data community there was a detectable preference for an approach that offered less magic and greater transparency — clearly represented in @generateme's design of tablecloth's API. In tablecloth, you always say what you mean:
 
@@ -97,6 +97,66 @@ The key distinction from Pandas: in tablecloth.time, the index would be pure con
 (tct/resample ds :Time :day)
 ```
 
-The index would be optional sugar, not architecture. That's the difference. Right now, though, I am holding off on building such a conveniences. Sticking to the declarative transformations helps to reveal the shape of the patterns that could eventually he wrapped aw conveninces. 
+The index would be optional sugar, not architecture. That's the difference. Right now, though, I am holding off on building such conveniences. Sticking to the declarative transformations helps to reveal the shape of the patterns that could eventually be wrapped as conveniences.
 
+## What's Available Now
+
+The current release provides a small set of focused primitives. Here's what they look like in action.
+
+### Extracting temporal components
+
+`add-time-columns` extracts fields from a datetime column — day-of-week, month, hour, etc. — as new columns you can group or filter on:
+
+```clojure
+(-> vic-elec
+    (tct/add-time-columns :Time [:day-of-week])
+    (tc/group-by [:day-of-week])
+    (tc/aggregate {:Demand #(dfn/mean (:Demand %))}))
+```
+
+{% include figure.html src="/assets/images/add-time-columns-example.png" caption="Average electricity demand by day of week — weekends are lower" %}
+
+Weekends clearly have lower demand. The `:day-of-week` field came from `add-time-columns`; the rest is standard tablecloth.
+
+### Slicing time ranges
+
+`slice` selects rows within a time range using binary search on sorted data:
+
+```clojure
+(-> vic-elec
+    (tct/slice :Time "2012-01-09" "2012-01-15"))
+```
+
+{% include figure.html src="/assets/images/slice-example.png" caption="One week of half-hourly demand — daily oscillation visible" %}
+
+Fast even on large datasets. Accepts date strings, datetime literals, or epoch milliseconds.
+
+### Lag and lead columns
+
+`add-lag` shifts column values for autocorrelation analysis. Here, lag-48 (one day at half-hourly resolution) lets us compare demand to the same time yesterday:
+
+```clojure
+(-> vic-elec
+    (tct/add-lag :Demand 48 :Demand_lag48)
+    (plotly/layer-point {:=x :Demand_lag48 :=y :Demand}))
+```
+
+{% include figure.html src="/assets/images/add-lag-example.png" caption="Demand vs same time yesterday — strong positive correlation" %}
+
+The tight diagonal shows demand is highly correlated with the same time the previous day — a pattern you'd expect for electricity usage.
+
+---
+
+These primitives compose with standard tablecloth operations — `group-by`, `aggregate`, `order-by` — to build analysis pipelines. For more worked examples, see the [fpp3 Chapter 2 notebook](https://kingkongbot.github.io/tablecloth.time/chapter_02_time_series_graphics.html).
+
+## What's Next
+
+tablecloth.time is experimental. The API will evolve as patterns emerge from real use. Planned areas include:
+
+- **Rolling windows** — moving averages, rolling statistics
+- **Differencing** — for stationarity transformations  
+- **Higher-level patterns** — `resample`, `seasonal-decompose` built on the primitives
+- **Better integration with tableplot** — time-aware plotting defaults
+
+If you're working with time series in Clojure and want to try it out, feedback is welcome. The [repository is on GitHub](https://github.com/scicloj/tablecloth.time).
 

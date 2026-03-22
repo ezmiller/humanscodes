@@ -393,3 +393,15 @@ footer {
 }
 
 
+
+/* Post images - constrain width */
+.post-image img,
+p.post-image img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
