@@ -2,12 +2,12 @@
 layout: post
 title: "Relaunching tablecloth.time: Composability Over Abstraction"
 author: Ethan Miller
-date: 2026-03-16
+date: 2026-03-22
 categories: clojure data-science
 tags: [clojure, data-science, time-series, tablecloth, scicloj]
 ---
 
-{% include figure.html src="/assets/images/hero-seasonal.png" caption="Daily electricity demand patterns — each colored line is one day" %}
+{% include figure.html src="/assets/images/hero-seasonal.png" caption="Seasonal patterns in electricity demand" %}
 
 I recently relaunched the tablecloth.time project. The goal of this project, which remains in an experimental phase, is to explore a composable extension of the popular tablecloth data processing library that aids temporal analysis of tabular data. Relaunching this project required rethinking some of our intial ideas about how this project would work. While the project remains experimental, the new direction aligns with how tablecloth and tech.ml.dataset already work — explicit column arguments, composable operations, no metadata magic.
 
