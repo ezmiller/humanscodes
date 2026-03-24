@@ -18,5 +18,5 @@ Simplicity is a concept I struggle with in programming. At all times, one wants 
 
 Palmer names these concepts this way:
 
-- **Abstracted simplicity:** implementation details are wrapped up in abstractions such that when reading code, irrelevant parts can be skipped or understood in a summarised form.
-- **Flattened simplicity:** abstractions are avoided, in favour of flattening code paths such that when reading code, details are not hidden.
+> - **Abstracted simplicity:** implementation details are wrapped up in abstractions such that when reading code, irrelevant parts can be skipped or understood in a summarised form.
+> - **Flattened simplicity:** abstractions are avoided, in favour of flattening code paths such that when reading code, details are not hidden.
