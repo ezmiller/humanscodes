@@ -12,7 +12,7 @@ highlight: >
   a set of competing priorities and trade-offs.
 ---
 
-Simplicity is a concept I struggle with in programming. We all want code (and systems) that are simple. Yet little consensus exists about what simple means in practice. Rich Hickey, the creator of Clojure, distinguished simple from easy. The easiest thing is not necessarily the simplest. But the software engineer Dan Palmer takes this further, pointing out that there are multiple conceptions of simplicity, and they exist in tension with each other:
+Simplicity is a concept I struggle with in programming. We all want code (and systems) that are simple. Yet little consensus exists about what simple means in practice. Rich Hickey, the creator of Clojure, [distinguished simple from easy](https://www.infoq.com/presentations/Simple-Made-Easy/). The easiest thing is not necessarily the simplest. But the software engineer Dan Palmer takes this further, pointing out that there are multiple conceptions of simplicity, and they exist in tension with each other:
 
 > But what is simplicity? Despite this near universal agreement that it's important, throughout my career I've seen numerous instances of friction in design and code review where both parties are convinced that their solution is the simpler option. These disagreements are notoriously hard to resolve because we lack the language to talk about our preferences when it comes to simplicity, and simplicity is not a single concept or direction, but a set of competing priorities and trade-offs.
 
