@@ -1,7 +1,7 @@
 ---
 layout: quote
 title: "What is Simplicity?"
-source: "Dan Palmer"
+source: "Dan Palmer, 'What is Simplicity?'"
 source_url: https://danpalmer.me/2025-06-25-what-is-simplicity/
 date: 2026-03-24
 tags: [simplicity, software-design]
