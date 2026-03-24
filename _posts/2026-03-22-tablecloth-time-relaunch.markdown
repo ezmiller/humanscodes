@@ -59,13 +59,15 @@ That said, within the Clojure data community there was a detectable preference f
 
 No hidden state, no implicit pivots. Each function takes the data and the columns it operates on. The pipeline reads like what it does. This, of course, is a hallmark of Clojure itself where we prefer to solve complex problems by starting with small pure functions that simply modify immutable data. The beauty of the tech.ml.dataset's objects is that they can be treated the same way.
 
-In reviving tablecloth.time, I have been following this pattern. While it might at some point be clear there is a power to enabling a utility that marks a column as "the time index" and building functions that can use that information, for the moment tablecloth.time provides explicit primitives that compose with standard tablecloth operations. You simply say which column you're working with. You see exactly what's being computed.
+The software engineer Dan Palmer recently [termed this approach](https://danpalmer.me/2025-06-25-what-is-simplicity/) "flattened simplicity." For Palmer, keeping things simple by not hiding details is one pole on a spectrum — at the other end sits "abstracted simplicity," where details are hidden in favor of high-level concepts. Neither approach is inherently right; in practice we seek to balance the tension between them.
+
+In reviving tablecloth.time, I have been following the flattened pattern. While it might at some point be useful to mark a column as "the time index" and build functions that use that information, for the moment tablecloth.time provides explicit primitives that compose with standard tablecloth operations. You simply say which column you're working with. You see exactly what's being computed.
 
 ## Working through a Use Case
 
-Consider resampling — aggregating time series data to a coarser resolution.
+We can see this trade-off by working through a concrete case: resampling — aggregating time series data to a coarser resolution.
 
-In Pandas:
+In Pandas, we see a classic example of abstracted simplicity:
 
 ```python
 df.resample('D').mean()
@@ -100,7 +102,7 @@ The key distinction from Pandas: in tablecloth.time, the index would be pure con
 (tct/resample ds :Time :day)
 ```
 
-The index would be optional sugar, not architecture. That's the difference. Right now, though, I am holding off on building such conveniences. Sticking to the declarative transformations helps to reveal the shape of the patterns that could eventually be wrapped as conveniences.
+The index would be optional sugar, not architecture. That's the difference. Right now, though, I am holding off on building such abstractions. Sticking to the flattened, declarative transformations helps reveal the shape of the patterns that could eventually be wrapped as conveniences.
 
 ## What's Available Now
 
