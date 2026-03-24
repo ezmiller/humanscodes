@@ -10,13 +10,13 @@ excerpt: "I recently relaunched the tablecloth.time project — a composable ext
 
 {% include figure.html src="/assets/images/hero-seasonal.png" caption="Daily electricity demand patterns — each line is one day, colored by year" %}
 
-I recently relaunched the tablecloth.time project. The goal of this project, which remains experimental, is to build a composable extension for temporal analysis on top of [tablecloth](https://scicloj.github.io/tablecloth/), the primary dataframe library in the Clojure data science ecosystem developed by the [SciCloj community](https://scicloj.github.io/). Tablecloth itself is built on [tech.ml.dataset](https://github.com/techascent/tech.ml.dataset), a high-performance columnar data library.
+I recently relaunched the tablecloth.time project. The goal of this project, which remains experimental, is to build a composable extension for temporal analysis on top of [tablecloth](https://scicloj.github.io/tablecloth/), the primary dataframe library in the Clojure data science ecosystem. Tablecloth was created by @generateme within the [SciCloj community](https://scicloj.github.io/) and is built on [tech.ml.dataset](https://github.com/techascent/tech.ml.dataset), a high-performance columnar data library.
 
 tablecloth.time originally began several years ago with an index-based design inspired by Pandas. But when tech.ml.dataset removed its indexing mechanism in v7, it prompted a rethink. The new direction aligns with how tablecloth already works — explicit column arguments, composable operations, no metadata magic.
 
 ## Indexing and Optimization
 
-This project started its life several years ago with the SciCloj community. At that time, we thought that the project should be built around a mechanism of setting a temporal index structure on a dataset and then building index-aware functions that could operate over the data efficiently using that index. This was a design philosophy that mimicked the index available in Python Pandas. In Pandas, you might set a time column as your DataFrame's index:
+The original design mimicked Python Pandas, where you set a time column as your DataFrame's index:
 
 ```python
 df = df.set_index('Time')
