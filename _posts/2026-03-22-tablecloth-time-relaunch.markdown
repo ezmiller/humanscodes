@@ -10,7 +10,7 @@ excerpt: "I recently relaunched the tablecloth.time project — a composable ext
 
 {% include figure.html src="/assets/images/hero-seasonal.png" caption="Daily electricity demand patterns — each line is one day, colored by year" %}
 
-I recently relaunched the tablecloth.time project. The goal of this project, which remains in an experimental phase, is to explore a composable extension of the popular tablecloth data processing library that aids temporal analysis of tabular data. Relaunching this project required rethinking some of our intial ideas about how this project would work. While the project remains experimental, the new direction aligns with how tablecloth and tech.ml.dataset already work — explicit column arguments, composable operations, no metadata magic.
+I recently relaunched the tablecloth.time project. The goal of this project, which remains in an experimental phase, is to explore a composable extension of the popular tablecloth data processing library that aids temporal analysis of tabular data. Relaunching this project required rethinking some of our initial ideas about how this project would work. While the project remains experimental, the new direction aligns with how tablecloth and tech.ml.dataset already work — explicit column arguments, composable operations, no metadata magic.
 
 ## Indexing and Optimization
 
@@ -35,7 +35,7 @@ At the time the project began, the index seemed necessary both because it was a 
 
 However, ultimately, neither turned out to be good rationales for an index. Unlike in Python, Clojure's datasets are immutable. They're recreated wholesale each time you transform them. Under these circumstances, the optimization offered by a tree-based index is moot: the constant overhead of needing to build and sometimes rebuild the tree negates the benefit, and a simple binary search on sorted data performs equally well or better.
 
-This insight emerged from a discussion on the Clojurians Zulip in late 2024, after the tech.ml.dataset library removed its indexing mechanism. Chris Nuernberger, the author of dtype-next and the tech.ml.dataset , put it plainly: "You only need tree structures if you are adding values ad-hoc or removing them — usually with datasets we aren't adding/removing rows but rebuilding the index all at once. Just sorting the dataset and using binary search will outperform most/all tree structures in this scenario." Harold, Chris's colleague, validated this with real-world benchmarks: binary search on a million-row dataset performed at over a million rows per second. The simplicity of not needing an index is not a compromise.
+This insight emerged from a discussion on the Clojurians Zulip in late 2024, after the tech.ml.dataset library removed its indexing mechanism. Chris Nuernberger, the author of dtype-next and tech.ml.dataset, put it plainly: "You only need tree structures if you are adding values ad-hoc or removing them — usually with datasets we aren't adding/removing rows but rebuilding the index all at once. Just sorting the dataset and using binary search will outperform most/all tree structures in this scenario." Harold, Chris's colleague, validated this with real-world benchmarks: binary search on a million-row dataset performed at over a million rows per second. The simplicity of not needing an index is not a compromise.
 
 There was still, however, the question of whether the index was a useful abstraction for the user. An index allows the user to mark off certain data as the key pivot for analysis, while index-aware functions offer a degree of "magic" allowing the user to simply call a function like `slice` without needing to say what they intend to slice. In R's tsibble package, for example:
 
@@ -44,7 +44,7 @@ vic_elec <- as_tsibble(data, index = Time)
 vic_elec |> index_by(Date = as_date(Time)) |> summarise(Demand = mean(Demand))
 ```
 
-The `index = Time` declaration ripples through everything — `index_by` knows what to group on, plotting functions know the x-axis, and interval detection happens automatically. It's elegant, which makes this approach desirable, but it's also implicit state threaded through your data. So while the the question of optimziation could be answered more definitively, the UX issues involved real choices.
+The `index = Time` declaration ripples through everything — `index_by` knows what to group on, plotting functions know the x-axis, and interval detection happens automatically. It's elegant, which makes this approach desirable, but it's also implicit state threaded through your data. So while the question of optimization could be answered more definitively, the UX issues involved real choices.
 
 ## Favoring Clarity and Composability
 
@@ -86,7 +86,7 @@ Right now tablecloth.time doesn't have a resample function. Instead, resampling 
 
 You choose what temporal component to extract. You specify the time index (`:Time`). You choose what to group by. You choose what to aggregate. Each step is visible, each step composes with the rest of your pipeline. The code reads like what it does — a property Clojure programmers tend to value.
 
-Yet at some point, this pattern could also be packaged, for convience, into a `resample` function that encapsulates this pattern. That would be magic to some degree, but this function would also just name the index: 
+Yet at some point, this pattern could also be packaged, for convenience, into a `resample` function that encapsulates this pattern. That would be magic to some degree, but this function would also just name the index: 
 
 ```clojure
 (-> ds
