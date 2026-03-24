@@ -10,7 +10,9 @@ excerpt: "I recently relaunched the tablecloth.time project — a composable ext
 
 {% include figure.html src="/assets/images/hero-seasonal.png" caption="Daily electricity demand patterns — each line is one day, colored by year" %}
 
-I recently relaunched the tablecloth.time project. The goal of this project, which remains in an experimental phase, is to explore a composable extension of the popular tablecloth data processing library that aids temporal analysis of tabular data. Relaunching this project required rethinking some of our initial ideas about how this project would work. While the project remains experimental, the new direction aligns with how tablecloth and tech.ml.dataset already work — explicit column arguments, composable operations, no metadata magic.
+I recently relaunched the tablecloth.time project. The goal of this project, which remains experimental, is to build a composable extension for temporal analysis on top of [tablecloth](https://scicloj.github.io/tablecloth/), the primary dataframe library in the Clojure data science ecosystem developed by the [SciCloj community](https://scicloj.github.io/). Tablecloth itself is built on [tech.ml.dataset](https://github.com/techascent/tech.ml.dataset), a high-performance columnar data library.
+
+tablecloth.time originally began several years ago with an index-based design inspired by Pandas. But when tech.ml.dataset removed its indexing mechanism in v7, it prompted a rethink. The new direction aligns with how tablecloth already works — explicit column arguments, composable operations, no metadata magic.
 
 ## Indexing and Optimization
 
