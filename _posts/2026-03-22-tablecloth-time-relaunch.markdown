@@ -45,7 +45,7 @@ The `index = Time` declaration ripples through everything — `index_by` knows w
 
 ## Favoring Clarity and Composability
 
-That said, within the Clojure data community there was a detectable preference for an approach that offered less magic and greater transparency — clearly represented in @generateme's design of tablecloth's API. In tablecloth, you always say what you mean:
+That said, within the Clojure data community there was a detectable preference for an approach that offered less magic and greater transparency, a tendency clearly represented in @generateme's design of tablecloth's API. In tablecloth, you always say what you mean:
 
 ```clojure
 (-> ds
@@ -54,15 +54,16 @@ That said, within the Clojure data community there was a detectable preference f
     (tc/group-by [:Date]))
 ```
 
-No hidden state, no implicit pivots. Each function takes the data and the columns it operates on. The pipeline reads like what it does. This, of course, is a hallmark of Clojure itself where we prefer to solve complex problems by starting with small pure functions that simply modify immutable data. The beauty of the tech.ml.dataset's objects is that they can be treated the same way.
+No hidden state, no implicit pivots. Each function takes the data and the columns it operates on. The pipeline reads like what it does. This style is, of course, is a hallmark of Clojure itself where we prefer to solve complex problems by starting with small pure functions that modify immutable data and then compose them together. The beauty of the tech.ml.dataset's objects is that they can be treated the same way.
 
-In reviving tablecloth.time, I have been following this pattern. While it might at some point be clear there is a power to enabling a utility that marks a column as "the time index" and building functions that can use that information, for the moment tablecloth.time provides explicit primitives that compose with standard tablecloth operations. You simply say which column you're working with. You see exactly what's being computed.
 
 ## Working through a Use Case
 
-Consider resampling — aggregating time series data to a coarser resolution.
+The software engineer Dan Palmer recently termed this approach "flattend simplicity". For Palmer this method of keeping this simply be not hiding details keeeping is one poll on the other side of a spectrum from "abstract simplicity" where details are hidden in favor of high level concepts. Neighter approach is right and in practice the engineer seeks to balance the tension between them. 
 
-In Pandas:
+We can see this by working through a concrete case: resampling — aggregating time series data to a coarser resolution. 
+
+In Pandas, we see a classic example of abstract simplicity:
 
 ```python
 df.resample('D').mean()
@@ -97,7 +98,7 @@ The key distinction from Pandas: in tablecloth.time, the index would be pure con
 (tct/resample ds :Time :day)
 ```
 
-The index would be optional sugar, not architecture. That's the difference. Right now, though, I am holding off on building such conveniences. Sticking to the declarative transformations helps to reveal the shape of the patterns that could eventually be wrapped as conveniences.
+The index would be optional sugar, not architecture. That's the difference. Right now, though, I am holding off on building such abstract conveniences. Sticking to the "flattened" declarative transformations helps to reveal the shape of the patterns that could eventually be wrapped as conveniences.
 
 ## What's Available Now
 
