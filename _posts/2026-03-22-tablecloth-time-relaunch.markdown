@@ -5,12 +5,12 @@ author: Ethan Miller
 date: 2026-03-22
 categories: clojure data-science
 tags: [clojure, data-science, time-series, tablecloth, scicloj]
-excerpt: "I recently relaunched the tablecloth.time project — a composable extension for temporal analysis in Clojure. The new direction favors explicit operations over index magic."
+excerpt: "I recently relaunched tablecloth.time with version 1.00-alpha-6 — a composable extension for temporal analysis in Clojure. The new direction favors explicit operations over index magic."
 ---
 
 {% include figure.html src="/assets/images/hero-seasonal.png" caption="Daily electricity demand patterns — each line is one day, colored by year" %}
 
-I recently relaunched the tablecloth.time project. The goal of this project, which remains experimental, is to build a composable extension for temporal analysis on top of [tablecloth](https://scicloj.github.io/tablecloth/), the primary dataframe library in the Clojure data science ecosystem. Tablecloth was created by @generateme within the [SciCloj community](https://scicloj.github.io/) and is built on [tech.ml.dataset](https://github.com/techascent/tech.ml.dataset), a high-performance columnar data library.
+I recently relaunched [tablecloth.time](https://clojars.org/org.scicloj/tablecloth.time) with [version 1.00-alpha-6](https://github.com/scicloj/tablecloth.time/releases/tag/1.00-alpha-6). The goal of this project, which remains experimental, is to build a composable extension for temporal analysis on top of [tablecloth](https://scicloj.github.io/tablecloth/), the primary dataframe library in the Clojure data science ecosystem. Tablecloth was created by @generateme within the [SciCloj community](https://scicloj.github.io/) and is built on [tech.ml.dataset](https://github.com/techascent/tech.ml.dataset), a high-performance columnar data library.
 
 tablecloth.time originally began several years ago with an index-based design inspired by Pandas. But when tech.ml.dataset removed its indexing mechanism in v7, it prompted a rethink. The new direction aligns with how tablecloth already works — explicit column arguments, composable operations, no metadata magic.
 
