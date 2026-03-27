@@ -8,7 +8,7 @@ tags: [clojure, data-science, time-series, tablecloth, scicloj]
 excerpt: "I recently relaunched tablecloth.time with version 1.00-alpha-6 — a composable extension for temporal analysis in Clojure. The new direction favors explicit operations over index magic."
 ---
 
-{% include figure.html src="/assets/images/hero-seasonal.png" caption="Daily electricity demand patterns — each line is one day, colored by year" %}
+{% include figure.html src="/assets/images/hero-seasonal.png" caption="Daily electricity demand patterns from Victoria, Australia (vic_elec dataset) — each line is one day, colored by year" %}
 
 I recently relaunched [tablecloth.time](https://clojars.org/org.scicloj/tablecloth.time) with [version 1.00-alpha-6](https://github.com/scicloj/tablecloth.time/releases/tag/1.00-alpha-6). The goal of this project, which remains experimental, is to build a composable extension for temporal analysis on top of [tablecloth](https://scicloj.github.io/tablecloth/), the primary dataframe library in the Clojure data science ecosystem. Tablecloth was created by @generateme within the [SciCloj community](https://scicloj.github.io/) and is built on [tech.ml.dataset](https://github.com/techascent/tech.ml.dataset), a high-performance columnar data library.
 
