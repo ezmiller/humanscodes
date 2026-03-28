@@ -97,7 +97,9 @@ You choose what temporal component to extract. You specify the time index (`:Tim
  .agg(pl.col('Demand').mean()))
 ```
 
-Yet at some point, this pattern could also be packaged, for convenience, into a `resample` function that encapsulates this pattern. That would be magic to some degree, but this function would also just name the index: 
+## Layering Convenience Later
+
+Explicit primitives don't preclude convenience. At some point, this resampling pattern could be packaged into a `resample` function. That would be magic to some degree, but this function would also just name the index: 
 
 ```clojure
 (-> ds
