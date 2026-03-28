@@ -88,7 +88,7 @@ Right now tablecloth.time doesn't have a resample function. Instead, resampling 
 
 You choose what temporal component to extract. You specify the time index (`:Time`). You choose what to group by. You choose what to aggregate. Each step is visible, each step composes with the rest of your pipeline. The code reads like what it does — a property Clojure programmers tend to value.
 
-This pattern should look familiar if you've used [Polars](https://pola.rs/), the Rust-based DataFrame library that's become the fastest-growing Pandas alternative. Polars has no index by design — you always specify columns explicitly:
+[Polars](https://pola.rs/), the Rust-based DataFrame library that's become the fastest-growing Pandas alternative, has reached the same conclusion — no index by design. The resampling pattern looks strikingly similar:
 
 ```python
 (df
@@ -96,8 +96,6 @@ This pattern should look familiar if you've used [Polars](https://pola.rs/), the
  .group_by('day')
  .agg(pl.col('Demand').mean()))
 ```
-
-The resemblance isn't coincidental. Both libraries arrived at the same conclusion: with immutable data structures, explicit column references compose better than implicit index state.
 
 Yet at some point, this pattern could also be packaged, for convenience, into a `resample` function that encapsulates this pattern. That would be magic to some degree, but this function would also just name the index: 
 
