@@ -165,7 +165,7 @@ The tight diagonal shows demand is highly correlated with the same time the prev
 
 ---
 
-These primitives compose with standard tablecloth operations — `group-by`, `aggregate`, `order-by` — to build analysis pipelines. For more worked examples, see the [fpp3 Chapter 2 notebook](https://kingkongbot.github.io/tablecloth.time/chapter_02_time_series_graphics.html).
+These primitives compose with standard tablecloth operations — `group-by`, `aggregate`, `order-by` — to build analysis pipelines. For more worked examples, see the [fpp3 Chapter 2 notebook](https://scicloj.github.io/tablecloth.time/chapter_02_time_series_graphics.html).
 
 ## What's Next
 
